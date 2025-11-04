@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>🐍 Online Compiler by Dev Bhai</title>
+  <title>🐍 Python Shell by Dev Bhai</title>
 
-  <!-- Fira Code font -->
+  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
 
   <!-- CodeMirror -->
@@ -15,13 +15,11 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/python/python.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/clike/clike.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/sql/sql.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/addon/edit/closebrackets.min.js"></script>
 
-  <!-- Styles -->
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>🐍 Online Compiler by Dev Bhai</h1>
+  <h1>🐍 Python Shell by Dev Bhai</h1>
 
   <div class="controls">
     <label>Language:</label>
@@ -30,17 +28,20 @@
       <option value="c">C</option>
       <option value="sql">SQL</option>
     </select>
-    <button id="runBtn">▶ Run</button>
-    <button id="shareBtn">🔗 Share</button>
+    <button id="runBtn">▶ Run (F5)</button>
   </div>
 
   <textarea id="codeEditor">
-# Example: Python
+# Welcome to Dev Bhai’s Python Shell
 print("Hello Dev Bhai!")
   </textarea>
 
+  <div id="inputArea">
+    <textarea id="inputField" placeholder="Enter input() or scanf() values here"></textarea>
+  </div>
+
   <div class="output">
-    <h3>🧠 Output:</h3>
+    <h3>Output:</h3>
     <pre id="outputBox"></pre>
   </div>
 
