@@ -1,27 +1,62 @@
 body {
-  background:#1e1e2e;
-  color:#f8f8f2;
-  font-family:'Fira Code',monospace;
-  text-align:center;
-  margin:0;
-  padding:20px;
+  background: #1e1e2e;
+  color: #f8f8f2;
+  font-family: 'Fira Code', monospace;
+  text-align: center;
+  padding: 20px;
+  margin: 0;
 }
-h1{color:#f1fa8c;margin-bottom:20px;}
-.controls{margin-bottom:10px;}
-select,button{
-  background:#282a36;border:1px solid #44475a;
-  color:#f8f8f2;padding:8px 14px;border-radius:6px;
-  font-family:'Fira Code',monospace;cursor:pointer;
+
+h1 { color: #f1fa8c; margin-bottom: 15px; }
+
+.controls { margin-bottom: 10px; }
+
+select, button {
+  background: #282a36;
+  border: 1px solid #44475a;
+  color: #f8f8f2;
+  border-radius: 6px;
+  padding: 8px 14px;
+  font-family: 'Fira Code', monospace;
+  cursor: pointer;
 }
-button:hover{background:#44475a;}
-.CodeMirror{
-  width:80vw;height:50vh;font-size:15px;
-  border:1px solid #44475a;border-radius:8px;
+
+.CodeMirror {
+  width: 80vw;
+  height: 45vh;
+  border: 1px solid #44475a;
+  border-radius: 8px;
+  font-size: 15px;
 }
-.output{margin-top:15px;width:80vw;margin-inline:auto;text-align:left;}
-.output h3{color:#8be9fd;}
-#outputBox{
-  background:#22212c;border:1px solid #44475a;
-  border-radius:8px;padding:10px;color:#50fa7b;
-  min-height:100px;white-space:pre-wrap;
+
+#inputArea {
+  margin-top: 10px;
 }
+
+#inputField {
+  width: 80vw;
+  height: 60px;
+  background: #282a36;
+  color: #f8f8f2;
+  border: 1px solid #44475a;
+  border-radius: 6px;
+  font-family: 'Fira Code', monospace;
+  font-size: 14px;
+  padding: 6px;
+}
+
+.output {
+  width: 80vw;
+  background: #000;
+  color: #00ff00;
+  border-radius: 6px;
+  margin-top: 15px;
+  padding: 10px;
+  text-align: left;
+  font-size: 15px;
+  min-height: 150px;
+  box-shadow: inset 0 0 6px #111;
+  overflow-y: auto;
+}
+
+.output h3 { color: #8be9fd; }
