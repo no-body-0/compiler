@@ -1,3 +1,4 @@
+/* === Global Styles === */
 body {
   background-color: #1e1e2e;
   color: #f8f8f2;
@@ -5,59 +6,106 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px;
-  margin: 0;
+  justify-content: flex-start;
   height: 100vh;
+  margin: 0;
+  padding: 20px;
+  overflow: hidden;
 }
 
-h1 {
+/* === Header === */
+header {
   color: #f1fa8c;
+  font-size: 1.8rem;
+  font-weight: 600;
+  text-align: center;
   margin-bottom: 15px;
 }
 
-.controls select {
-  background: #282a36;
-  color: #f8f8f2;
-  border: 1px solid #44475a;
-  border-radius: 8px;
-  padding: 8px 12px;
+/* === Controls === */
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 95%;
   margin-bottom: 10px;
 }
 
-.CodeMirror {
-  width: 90%;
-  height: 300px;
-  font-size: 14px;
-  border-radius: 8px;
+#languageSelect {
+  background: #282a36;
+  color: #f8f8f2;
   border: 1px solid #44475a;
-  box-shadow: 0 0 10px #6272a4;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
 }
 
 .buttons {
-  margin-top: 10px;
+  display: flex;
+  gap: 10px;
 }
 
 button {
-  margin: 8px;
-  padding: 8px 16px;
   border: none;
-  border-radius: 8px;
+  border-radius: 6px;
+  font-family: 'Fira Code', monospace;
+  font-size: 1rem;
   cursor: pointer;
-  font-weight: bold;
+  padding: 8px 16px;
+  transition: 0.2s ease;
 }
 
-#run { background: #6272a4; color: #fff; }
-#share { background: #f1fa8c; color: #000; }
+#runButton {
+  background: #6272a4;
+  color: #fff;
+}
 
-pre {
-  background: #282a36;
-  color: #50fa7b;
-  width: 90%;
-  margin-top: 20px;
+#runButton:hover {
+  background: #7082b6;
+}
+
+#shareButton {
+  background: #f1fa8c;
+  color: #282a36;
+  font-weight: 600;
+}
+
+#shareButton:hover {
+  background: #fffcb1;
+}
+
+/* === CodeMirror Editor === */
+.CodeMirror {
+  width: 95%;
+  height: 50vh;
   border-radius: 8px;
-  padding: 12px;
-  text-align: left;
-  overflow-x: auto;
+  border: 1px solid #44475a;
+  font-size: 15px;
+  background: #282a36;
+  color: #f8f8f2;
+}
+
+/* === Output Area === */
+.output {
+  width: 95%;
+  height: 25vh;
+  background: #21222c;
+  color: #50fa7b;
+  font-size: 15px;
+  padding: 10px;
+  border: 1px solid #44475a;
+  border-radius: 8px;
   white-space: pre-wrap;
-  box-shadow: 0 0 10px #50fa7b;
+  overflow-y: auto;
+  margin-top: 10px;
+}
+
+/* Scrollbar */
+.output::-webkit-scrollbar {
+  width: 6px;
+}
+.output::-webkit-scrollbar-thumb {
+  background: #44475a;
+  border-radius: 3px;
 }
