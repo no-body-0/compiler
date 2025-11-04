@@ -1,0 +1,28 @@
+name: Save Shared Code to Gist
+
+on:
+  workflow_dispatch:
+    inputs:
+      filename:
+        description: "Filename for the shared code"
+        required: true
+      content:
+        description: "Code content"
+        required: true
+      language:
+        description: "Language"
+        required: true
+
+jobs:
+  create_gist:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create Gist
+        uses: peter-evans/create-gist@v2
+        with:
+          files: |
+            ${{ github.event.inputs.filename }}.${{ github.event.inputs.language }}: |
+              ${{ github.event.inputs.content }}
+          public: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GIST_TOKEN }}
