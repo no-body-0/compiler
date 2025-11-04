@@ -3,46 +3,55 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>🐍 Online Compiler by Dev Bhai</title>
+  <title>🐍 Online Compiler | Dev Bhai</title>
 
   <!-- Fira Code Font -->
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
 
   <!-- CodeMirror -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.9/codemirror.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.9/theme/dracula.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.9/codemirror.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.9/mode/python/python.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.9/mode/clike/clike.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.9/mode/sql/sql.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/theme/dracula.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/python/python.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/clike/clike.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/sql/sql.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/addon/edit/closebrackets.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/addon/edit/matchbrackets.min.js"></script>
 
+  <!-- Custom CSS -->
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
   <header>
-    <h1>⚡ Dev Bhai’s Online Compiler</h1>
+    <h1>🐍 Online Compiler by Dev Bhai</h1>
   </header>
 
-  <main>
-    <div class="controls">
-      <select id="languageSelect">
-        <option value="python">Python</option>
-        <option value="c">C</option>
-        <option value="sql">SQL</option>
-      </select>
+  <div class="controls">
+    <label for="languageSelect">Language:</label>
+    <select id="languageSelect">
+      <option value="python">Python</option>
+      <option value="c">C</option>
+      <option value="sql">SQL</option>
+    </select>
 
-      <div class="buttons">
-        <button id="runButton">Run ▶️</button>
-        <button id="shareButton">Share 🔗</button>
-      </div>
-    </div>
+    <button id="runBtn">▶ Run</button>
+    <button id="shareBtn">🔗 Share</button>
+  </div>
 
-    <textarea id="editor"></textarea>
+  <textarea id="codeEditor">
+# Welcome to Dev Bhai’s Online Compiler!
+# Select a language and click ▶ Run.
 
-    <div id="output" class="output" spellcheck="false">💻 Output will appear here...</div>
-  </main>
+print("Hello, Dev Bhai!")
+  </textarea>
 
+  <div class="output-container">
+    <h3>🧠 Output:</h3>
+    <pre id="output"></pre>
+  </div>
+
+  <!-- Custom Script -->
   <script src="script.js"></script>
 </body>
 </html>
