@@ -1,35 +1,62 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🐍 Dev Bhai Live Python Shell</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Dev Bhai — Live Python Interpreter</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- CodeMirror CSS + Python mode -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/theme/dracula.min.css">
+  <link rel="stylesheet" href="style.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/python/python.min.js"></script>
-
-  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/addon/edit/closebrackets.min.js"></script>
 </head>
 <body>
-  <h1>🐍 Live Python by Dev Bhai</h1>
+  <div class="container">
+    <header class="topbar">
+      <div class="title">🐍 Dev Bhai — Live Python Interpreter</div>
+      <div class="controls">
+        <button id="runBtn">Run ▶ (F5)</button>
+        <button id="stopBtn">Stop ✖</button>
+        <button id="clearBtn">Clear</button>
+      </div>
+    </header>
 
-  <div class="controls">
-    <button id="run-btn">▶ Run (F5)</button>
-  </div>
+    <main class="main">
+      <section class="left">
+        <div class="section-title">Editor</div>
+        <textarea id="codeEditor">
+# Example: use input() to test live input
+def oe():
+    n = int(input("No.: "))
+    if n % 2 == 0:
+        print("Even")
+    else:
+        print("Odd")
 
-  <textarea id="codeEditor">
-# Example
-name = input("Your name: ")
-print("Hello", name)
-  </textarea>
+oe()
+        </textarea>
+      </section>
 
-  <div class="output-section">
-    <h3>Live Output:</h3>
-    <pre id="output-box"></pre>
-    <input id="input-area" placeholder="Type input and press Enter..." />
+      <section class="right">
+        <div class="section-title">Interpreter Output</div>
+        <pre id="outputBox" class="output-box"></pre>
+        <input id="inputBox" class="input-box" placeholder="Type input here and press Enter" />
+      </section>
+    </main>
+
+    <section class="sql-area">
+      <div class="section-title">SQL Console (persistent SQLite)</div>
+      <textarea id="sqlEditor" placeholder="SELECT * FROM sqlite_master;"></textarea>
+      <div class="sql-actions">
+        <button id="runSqlBtn">Run SQL</button>
+        <button id="clearSqlBtn">Clear SQL</button>
+      </div>
+      <div id="sqlResult" class="sql-result"></div>
+    </section>
   </div>
 
   <script src="script.js"></script>
