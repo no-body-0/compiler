@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>🐍 Online Compiler | Dev Bhai</title>
+  <title>🐍 Online Compiler by Dev Bhai</title>
 
-  <!-- Fira Code Font -->
+  <!-- Fira Code font -->
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
 
   <!-- CodeMirror -->
@@ -16,42 +16,34 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/clike/clike.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/sql/sql.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/addon/edit/closebrackets.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/addon/edit/matchbrackets.min.js"></script>
 
-  <!-- Custom CSS -->
+  <!-- Styles -->
   <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-  <header>
-    <h1>🐍 Online Compiler by Dev Bhai</h1>
-  </header>
+  <h1>🐍 Online Compiler by Dev Bhai</h1>
 
   <div class="controls">
-    <label for="languageSelect">Language:</label>
+    <label>Language:</label>
     <select id="languageSelect">
       <option value="python">Python</option>
       <option value="c">C</option>
       <option value="sql">SQL</option>
     </select>
-
     <button id="runBtn">▶ Run</button>
     <button id="shareBtn">🔗 Share</button>
   </div>
 
   <textarea id="codeEditor">
-# Welcome to Dev Bhai’s Online Compiler!
-# Select a language and click ▶ Run.
-
-print("Hello, Dev Bhai!")
+# Example: Python
+print("Hello Dev Bhai!")
   </textarea>
 
-  <div class="output-container">
+  <div class="output">
     <h3>🧠 Output:</h3>
-    <pre id="output"></pre>
+    <pre id="outputBox"></pre>
   </div>
 
-  <!-- Custom Script -->
   <script src="script.js"></script>
 </body>
 </html>
