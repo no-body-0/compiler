@@ -1,4 +1,3 @@
-// === Setup CodeMirror (Script Editor) ===
 const editor = CodeMirror.fromTextArea(document.getElementById("codeEditor"), {
   mode: "python",
   theme: "dracula",
@@ -7,65 +6,27 @@ const editor = CodeMirror.fromTextArea(document.getElementById("codeEditor"), {
   lineWrapping: true,
 });
 
-const langSelect = document.getElementById("languageSelect");
 const runBtn = document.getElementById("runBtn");
-const inputField = document.getElementById("inputField");
+const langSelect = document.getElementById("languageSelect");
 const outputBox = document.getElementById("outputBox");
 
-// === Change Syntax Mode ===
-langSelect.addEventListener("change", () => {
-  const modeMap = { python: "python", c: "text/x-csrc", sql: "text/x-sql" };
-  editor.setOption("mode", modeMap[langSelect.value]);
-});
-
-// === Run Code Function ===
 async function runCode() {
   const lang = langSelect.value;
-  const code = editor.getValue().trim();
-  const stdin = inputField.value;
+  const code = editor.getValue();
 
-  if (!code) {
-    outputBox.textContent = ">>> ";
-    return;
-  }
+  outputBox.textContent = "Running your code...\n";
 
-  outputBox.textContent = `>>> Running ${lang.toUpperCase()} Script...\n`;
-  
   try {
-    const res = await fetch("https://emkc.org/api/v2/piston/execute", {
+    const response = await fetch("https://backend-repo-j0ed.onrender.com/run", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        language: lang,
-        version: "*",
-        files: [{ name: "main." + lang, content: code }],
-        stdin: stdin
-      }),
+      body: JSON.stringify({ language: lang, code }),
     });
-
-    const data = await res.json();
-    const output = data.run?.output || data.message || "";
-
-    // === Make Output Look Like Real Python Terminal ===
-    const lines = code.split("\n");
-    let formatted = "";
-    lines.forEach(line => {
-      if (line.trim()) formatted += ">>> " + line + "\n";
-    });
-    formatted += output.trim() + "\n>>> ";
-
-    outputBox.textContent = formatted;
-    outputBox.scrollTop = outputBox.scrollHeight;
+    const data = await response.json();
+    outputBox.textContent = data.output;
   } catch (err) {
-    outputBox.textContent = "⚠️ Error: " + err.message;
+    outputBox.textContent = "Error: " + err.message;
   }
 }
 
-// === Button & Keyboard Shortcuts ===
 runBtn.addEventListener("click", runCode);
-window.addEventListener("keydown", (e) => {
-  if (e.key === "F5") {
-    e.preventDefault();
-    runCode();
-  }
-});
