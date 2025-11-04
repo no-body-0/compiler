@@ -1,3 +1,4 @@
+// === Initialize CodeMirror ===
 const editor = CodeMirror.fromTextArea(document.getElementById("codeEditor"), {
   mode: "python",
   theme: "dracula",
@@ -6,27 +7,38 @@ const editor = CodeMirror.fromTextArea(document.getElementById("codeEditor"), {
   lineWrapping: true,
 });
 
-const runBtn = document.getElementById("runBtn");
-const langSelect = document.getElementById("languageSelect");
-const outputBox = document.getElementById("outputBox");
+const runBtn = document.getElementById("run-btn");
+const inputBox = document.getElementById("input-area");
+const outputBox = document.getElementById("output-box");
 
-async function runCode() {
-  const lang = langSelect.value;
+runBtn.addEventListener("click", () => startSession());
+window.addEventListener("keydown", e => { if (e.key === "F5") { e.preventDefault(); startSession(); } });
+
+let ws;
+
+function startSession() {
   const code = editor.getValue();
+  outputBox.textContent = ">>> Running...\n";
+  inputBox.value = "";
 
-  outputBox.textContent = "Running your code...\n";
+  ws = new WebSocket("wss://backend-repo-j0ed.onrender.com/runlive");
 
-  try {
-    const response = await fetch("https://backend-repo-j0ed.onrender.com/run", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ language: lang, code }),
-    });
-    const data = await response.json();
-    outputBox.textContent = data.output;
-  } catch (err) {
-    outputBox.textContent = "Error: " + err.message;
-  }
+  ws.onopen = () => ws.send(code);
+
+  ws.onmessage = (event) => {
+    outputBox.textContent += event.data;
+    outputBox.scrollTop = outputBox.scrollHeight;
+  };
+
+  ws.onclose = () => {
+    outputBox.textContent += "\n\n[Session ended]";
+  };
 }
 
-runBtn.addEventListener("click", runCode);
+inputBox.addEventListener("keydown", (e) => {
+  if (e.key === "Enter" && ws && ws.readyState === WebSocket.OPEN) {
+    e.preventDefault();
+    ws.send(inputBox.value);
+    inputBox.value = "";
+  }
+});
