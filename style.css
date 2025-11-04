@@ -3,21 +3,22 @@ body {
   color: #f8f8f2;
   font-family: 'Fira Code', monospace;
   text-align: center;
-  padding: 20px;
   margin: 0;
+  padding: 20px;
 }
 
-h1 { color: #f1fa8c; margin-bottom: 15px; }
+h1 {
+  color: #f1fa8c;
+  margin-bottom: 15px;
+}
 
-.controls { margin-bottom: 10px; }
-
-select, button {
-  background: #282a36;
-  border: 1px solid #44475a;
+button {
+  background: #6272a4;
+  border: none;
   color: #f8f8f2;
-  border-radius: 6px;
   padding: 8px 14px;
   font-family: 'Fira Code', monospace;
+  border-radius: 8px;
   cursor: pointer;
 }
 
@@ -27,36 +28,33 @@ select, button {
   border: 1px solid #44475a;
   border-radius: 8px;
   font-size: 15px;
-}
-
-#inputArea {
   margin-top: 10px;
 }
 
-#inputField {
-  width: 80vw;
-  height: 60px;
-  background: #282a36;
-  color: #f8f8f2;
-  border: 1px solid #44475a;
-  border-radius: 6px;
-  font-family: 'Fira Code', monospace;
-  font-size: 14px;
-  padding: 6px;
-}
-
-.output {
-  width: 80vw;
+.output-section {
   background: #000;
   color: #00ff00;
+  width: 80vw;
+  margin: 20px auto;
   border-radius: 6px;
-  margin-top: 15px;
   padding: 10px;
   text-align: left;
-  font-size: 15px;
-  min-height: 150px;
   box-shadow: inset 0 0 6px #111;
-  overflow-y: auto;
 }
 
-.output h3 { color: #8be9fd; }
+#output-box {
+  min-height: 200px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+}
+
+#input-area {
+  width: 100%;
+  background: #282a36;
+  color: #f8f8f2;
+  border: none;
+  border-top: 1px solid #44475a;
+  padding: 8px;
+  font-family: 'Fira Code', monospace;
+  display: block;
+}
