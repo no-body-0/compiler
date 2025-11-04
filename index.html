@@ -3,31 +3,35 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Dev Bhai — Live Python Interpreter</title>
+  <title>🐍 Dev Bhai — Live Python Interpreter</title>
 
+  <!-- Font -->
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
 
-  <!-- CodeMirror CSS + Python mode -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.css">
-  <link rel="stylesheet" href="style.css" />
+  <!-- CodeMirror -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/python/python.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/sql/sql.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/addon/edit/closebrackets.min.js"></script>
+
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container">
     <header class="topbar">
-      <div class="title">🐍 Dev Bhai — Live Python Interpreter</div>
+      <h1>🐍 Dev Bhai — Live Python Interpreter</h1>
       <div class="controls">
-        <button id="runBtn">Run ▶ (F5)</button>
-        <button id="stopBtn">Stop ✖</button>
-        <button id="clearBtn">Clear</button>
+        <button id="runBtn">▶ Run (F5)</button>
+        <button id="stopBtn">⛔ Stop</button>
+        <button id="clearBtn">🧹 Clear</button>
       </div>
     </header>
 
     <main class="main">
+      <!-- LEFT PANEL (Editor) -->
       <section class="left">
-        <div class="section-title">Editor</div>
+        <div class="section-title">📝 Editor</div>
         <textarea id="codeEditor">
 # Example: use input() to test live input
 def oe():
@@ -41,15 +45,17 @@ oe()
         </textarea>
       </section>
 
+      <!-- RIGHT PANEL (Output) -->
       <section class="right">
-        <div class="section-title">Interpreter Output</div>
-        <pre id="outputBox" class="output-box"></pre>
-        <input id="inputBox" class="input-box" placeholder="Type input here and press Enter" />
+        <div class="section-title">💻 Interpreter Output</div>
+        <pre id="outputBox" class="output-box">>>> Ready to run code...</pre>
+        <input id="inputBox" class="input-box" placeholder="Enter input() values here and press Enter" />
       </section>
     </main>
 
+    <!-- SQL Section -->
     <section class="sql-area">
-      <div class="section-title">SQL Console (persistent SQLite)</div>
+      <div class="section-title">🗄️ SQL Console (Persistent SQLite)</div>
       <textarea id="sqlEditor" placeholder="SELECT * FROM sqlite_master;"></textarea>
       <div class="sql-actions">
         <button id="runSqlBtn">Run SQL</button>
