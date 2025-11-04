@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>⚡ Multi-Language Compiler | By Dev Kumar Mahur</title>
+
+  <!-- Fira Code Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- CodeMirror -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/codemirror.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/theme/dracula.min.css">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/mode/python/python.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/mode/clike/clike.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/mode/sql/sql.min.js"></script>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>⚡ Multi-Language Online Compiler</h1>
+
+  <div class="controls">
+    <select id="lang">
+      <option value="python">🐍 Python</option>
+      <option value="c">💻 C</option>
+      <option value="sqlite3">🗄️ SQL</option>
+    </select>
+  </div>
+
+  <textarea id="code" placeholder="Write your code here..."></textarea>
+
+  <div class="buttons">
+    <button id="run">▶ Run</button>
+    <button id="share">🔗 Share</button>
+  </div>
+
+  <pre id="output"></pre>
+
+  <script src="script.js"></script>
+</body>
+</html>
