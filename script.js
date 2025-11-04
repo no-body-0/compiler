@@ -1,128 +1,97 @@
-// ==========================
-//   Online Compiler Script
-//   By Dev Bhai 😎
-// ==========================
-
-// Initialize CodeMirror editor
-const editor = CodeMirror.fromTextArea(document.getElementById("codeEditor"), {
+// --- Setup CodeMirror ---
+const editor = CodeMirror.fromTextArea(document.getElementById('codeEditor'), {
   mode: "python",
   theme: "dracula",
   lineNumbers: true,
   autoCloseBrackets: true,
-  matchBrackets: true,
-  indentUnit: 4,
-  tabSize: 4,
-  viewportMargin: Infinity,
-  lineWrapping: true,
 });
 
-// Language mode switch
-const languageSelect = document.getElementById("languageSelect");
-languageSelect.addEventListener("change", () => {
-  const lang = languageSelect.value;
-  let mode = "python";
-  if (lang === "c") mode = "text/x-csrc";
-  else if (lang === "sql") mode = "text/x-sql";
-  editor.setOption("mode", mode);
+const langSelect = document.getElementById('languageSelect');
+const runBtn = document.getElementById('runBtn');
+const shareBtn = document.getElementById('shareBtn');
+const outputBox = document.getElementById('outputBox');
+
+// --- Switch syntax mode ---
+langSelect.addEventListener('change', () => {
+  const modeMap = { python: "python", c: "text/x-csrc", sql: "text/x-sql" };
+  editor.setOption("mode", modeMap[langSelect.value]);
 });
 
-// ==========================
-//   RUN CODE (via Piston API)
-// ==========================
-async function runCode() {
+// --- Run with Piston API ---
+runBtn.addEventListener('click', async () => {
   const code = editor.getValue();
-  const language = languageSelect.value;
-  const output = document.getElementById("output");
-
-  output.textContent = "⏳ Running your code...";
-
-  const languageMap = {
-    python: "python3",
-    c: "c",
-    sql: "sqlite3",
-  };
-
-  const selectedLanguage = languageMap[language] || language;
+  const lang = langSelect.value;
+  outputBox.textContent = "⏳ Running...";
 
   try {
-    const response = await fetch("https://emkc.org/api/v2/piston/execute", {
+    const res = await fetch("https://emkc.org/api/v2/piston/execute", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        language: selectedLanguage,
+        language: lang,
         version: "*",
-        files: [{ name: `main.${language}`, content: code }],
-      }),
+        files: [{ name: "main." + lang, content: code }]
+      })
     });
-
-    const data = await response.json();
-
-    let result = "";
-    if (data.run && data.run.output) {
-      result = data.run.output;
-    } else if (data.compile && data.compile.output) {
-      result = data.compile.output;
-    } else {
-      result = "⚠️ No output or error occurred.";
-    }
-
-    // Python interpreter-style formatting
-    if (language === "python") {
-      const lines = code.split("\n").map(l => ">>> " + l).join("\n");
-      output.textContent = `${lines}\n\n${result}`;
-    } else {
-      output.textContent = result;
-    }
-  } catch (err) {
-    output.textContent = "❌ Error connecting to Piston API.";
-    console.error(err);
+    const data = await res.json();
+    outputBox.textContent = data.run?.output || data.message || "No output.";
+  } catch (e) {
+    outputBox.textContent = "⚠️ " + e.message;
   }
-}
+});
 
-// ==========================
-//   SHARE CODE (via GitHub Action)
-// ==========================
-async function shareCode() {
+// --- Share code via GitHub Gist ---
+shareBtn.addEventListener('click', async () => {
   const code = editor.getValue();
-  const language = languageSelect.value;
-  const filename = language + "_" + Date.now();
+  const lang = langSelect.value;
+  const gistData = {
+    description: "Shared from Dev Bhai’s Online Compiler",
+    public: true,
+    files: { ["code." + lang]: { content: code } }
+  };
 
-  const response = await fetch(
-    "https://api.github.com/repos/no-body-0/compiler/actions/workflows/save-code.yml/dispatches",
-    {
+  const token = ""; // ⚠️ empty here — GitHub Pages cannot expose secrets
+
+  if (!token) {
+    alert("⚠️ GitHub Pages cannot use secrets directly.\nUse this script locally or through a simple proxy server to hide your token.");
+    return;
+  }
+
+  try {
+    const res = await fetch("https://api.github.com/gists", {
       method: "POST",
       headers: {
-        "Accept": "application/vnd.github.v3+json",
-        // no token needed in frontend (security!)
+        "Content-Type": "application/json",
+        Authorization: "token " + token
       },
-      body: JSON.stringify({
-        ref: "main",
-        inputs: {
-          filename: filename,
-          content: code,
-          language: language === "python" ? "py" : language,
-        },
-      }),
+      body: JSON.stringify(gistData)
+    });
+
+    const data = await res.json();
+    if (data.html_url) {
+      const link = `${location.origin + location.pathname}?gist=${data.id}`;
+      navigator.clipboard.writeText(link);
+      alert("✅ Link copied!\n" + link);
+    } else {
+      alert("⚠️ Failed to create gist");
     }
-  );
-
-  if (response.ok) {
-    // Optional short URL (is.gd)
-    const longUrl = `https://gist.github.com/no-body-0`;
-    const shortResponse = await fetch(
-      `https://is.gd/create.php?format=simple&url=${encodeURIComponent(longUrl)}`
-    );
-    const shortURL = await shortResponse.text();
-    alert(`✅ Code shared successfully!\nPermanent Gist link:\n${shortURL}`);
-  } else {
-    const err = await response.text();
-    alert("❌ Error saving code!");
-    console.error(err);
+  } catch (e) {
+    alert("Error: " + e.message);
   }
-}
+});
 
-// ==========================
-//   Attach Button Listeners
-// ==========================
-document.getElementById("runBtn").addEventListener("click", runCode);
-document.getElementById("shareBtn").addEventListener("click", shareCode);
+// --- Auto-load code from ?gist=ID ---
+window.addEventListener("load", async () => {
+  const params = new URLSearchParams(window.location.search);
+  const gistId = params.get("gist");
+  if (!gistId) return;
+
+  try {
+    const res = await fetch(`https://api.github.com/gists/${gistId}`);
+    const data = await res.json();
+    const file = Object.values(data.files)[0];
+    editor.setValue(file.content);
+  } catch (e) {
+    console.error(e);
+  }
+});
