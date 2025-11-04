@@ -1,48 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>🐍 Python Shell by Dev Bhai</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🐍 Dev Bhai Live Python Shell</title>
 
-  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
-
-  <!-- CodeMirror -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/theme/dracula.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/python/python.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/clike/clike.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/sql/sql.min.js"></script>
 
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>🐍 Python Shell by Dev Bhai</h1>
+  <h1>🐍 Live Python by Dev Bhai</h1>
 
   <div class="controls">
-    <label>Language:</label>
-    <select id="languageSelect">
-      <option value="python">Python</option>
-      <option value="c">C</option>
-      <option value="sql">SQL</option>
-    </select>
-    <button id="runBtn">▶ Run (F5)</button>
+    <button id="run-btn">▶ Run (F5)</button>
   </div>
 
   <textarea id="codeEditor">
-# Welcome to Dev Bhai’s Python Shell
-print("Hello Dev Bhai!")
+# Example
+name = input("Your name: ")
+print("Hello", name)
   </textarea>
 
-  <div id="inputArea">
-    <textarea id="inputField" placeholder="Enter input() or scanf() values here"></textarea>
-  </div>
-
-  <div class="output">
-    <h3>Output:</h3>
-    <pre id="outputBox"></pre>
+  <div class="output-section">
+    <h3>Live Output:</h3>
+    <pre id="output-box"></pre>
+    <input id="input-area" placeholder="Type input and press Enter..." />
   </div>
 
   <script src="script.js"></script>
